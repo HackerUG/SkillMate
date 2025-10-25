@@ -16,6 +16,7 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "framer-motion": "^12.23.12",
+    "lucide-react": "^0.548.0",
     "node-fetch": "^3.3.2",
     "pdfjs-dist": "^5.1.91",
     "prettier": "^3.6.2",
