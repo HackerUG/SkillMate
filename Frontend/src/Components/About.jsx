@@ -150,7 +150,7 @@ const About = () => {
           className="creator-card"
         >
           <img
-            src="src/assets/hndsome.jpg"
+            src="src/assets/creator.jpg"
             alt="Creator"
             className="creator-img"
           />
