@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import "./graphVisualizer.css";
+import "./GraphVisualizer.css";
 
 const GraphVisualizer = ({ nodes, edges, highlight, highlightEdges }) => {
   const svgRef = useRef();
