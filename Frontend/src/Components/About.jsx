@@ -150,7 +150,11 @@ const About = () => {
           className="creator-card"
         >
           <img
+<<<<<<< HEAD
             src="/creator.jpg"
+=======
+            src="./assets/creator.jpg"
+>>>>>>> a902689aa41b0e099d4711aa66647b4b6dbdfd04
             alt="Creator"
             className="creator-img"
           />
