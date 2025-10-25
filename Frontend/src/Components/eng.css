@@ -1,0 +1,46 @@
+.engineering-hub h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.subject-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  min-width: 180px;
+  margin: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  background-color: #f0f4ff;
+}
+
+.subject-card:active {
+  transform: scale(0.97);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.subjects-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.subject-icon {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.subject-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+}

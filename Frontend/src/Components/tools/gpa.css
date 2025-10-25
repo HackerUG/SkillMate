@@ -1,0 +1,85 @@
+.gpa-tool-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.gpa-tool-container .back-btn {
+  margin-top: 2rem;
+  padding: 0.6rem 1.2rem;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+.gpa-tool-container h1,
+.gpa-tool-container h2 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.gpa-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  background: #fff;
+  color: #333;
+  font-size: 1rem;
+}
+
+input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 5px rgba(6, 214, 160, 0.4);
+}
+
+.grid-2 {
+  display: grid;
+  margin-top: 10px;
+  grid-template-columns: 1fr 1fr;
+  gap: 35px;
+}
+
+.gpa-actions button,
+.gpa-section button {
+  background: #6366f1;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  color: white;
+}
+
+.gpa-actions button:hover,
+.gpa-section button:hover {
+  background: #4f46e5;
+}
+
+.gpa-result {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #ef476f;
+}
+
+.muted {
+  font-size: 0.9rem;
+  color: #666;
+}

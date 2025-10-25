@@ -1,0 +1,108 @@
+.algo-code-container {
+  position: relative; 
+  margin: 2rem auto;
+  width: 80%;
+  max-width: 100%;
+  background: rgba(25, 25, 35, 0.85);
+  border-radius: 16px;
+  padding: 1rem 1rem;
+  color: #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out;
+  z-index: 10;
+}
+
+/* Header with algo name + tabs */
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.code-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Language tabs */
+.language-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.language-tabs button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  padding: 0.3rem 0.7rem;
+  color: #ccc;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.language-tabs button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.language-tabs button.active {
+  background: linear-gradient(135deg, #3b82f6, #22c55e);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
+}
+
+/* Scrollable code area */
+.code-content {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 400px;
+  scrollbar-width: thin;
+}
+
+.code-content::-webkit-scrollbar {
+  width: 6px;
+}
+.code-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+/* Code block */
+.code-block {
+  font-family: "Fira Code", monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #9ae6b4;
+  padding: 0.6rem;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.25);
+  line-height: 1.5;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+/* Smooth appear animation */
+@keyframes fadeInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

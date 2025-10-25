@@ -1,0 +1,156 @@
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext";
+import "./login.css";
+
+const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // simple validation
+    if (isSignup && formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const url = `http://localhost:5000/api/auth/${isSignup ? "register" : "login"}`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Something went wrong");
+
+      login(data.token);
+      toast.success(isSignup ? "Account created successfully!" : "Login successful!");
+      setTimeout(() => navigate("/profile"), 1500);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  return (
+    <motion.div
+      className="auth-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+    >
+      <ToastContainer position="top-right" autoClose={2000} />
+      
+      <motion.div
+        className="auth-card"
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 80 }}
+      >
+        <h2 className="auth-title">{isSignup ? "Create Account" : "Welcome Back"}</h2>
+        <p className="auth-subtitle">
+          {isSignup ? "Join our community!" : "Login to continue your journey"}
+        </p>
+
+        <form onSubmit={handleSubmit} className="auth-form">
+          <AnimatePresence>
+            {isSignup && (
+              <motion.div
+                className="input-group"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
+                <input
+                  type="text"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                />
+                <label>Username</label>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <div className="input-group">
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <label>Email</label>
+          </div>
+
+          <div className="input-group">
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <label>Password</label>
+          </div>
+
+          <AnimatePresence>
+            {isSignup && (
+              <motion.div
+                className="input-group"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+              >
+                <input
+                  type="password"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                />
+                <label>Confirm Password</label>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <motion.button
+            className="auth-btn"
+            type="submit"
+            whileHover={{ scale: 1.05, backgroundColor: "#5ce1e6" }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {isSignup ? "Sign Up" : "Login"}
+          </motion.button>
+        </form>
+
+        <p className="switch-text">
+          {isSignup ? "Already have an account?" : "Don’t have an account?"}
+          <span onClick={() => setIsSignup(!isSignup)}>
+            {isSignup ? " Login" : " Sign Up"}
+          </span>
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default Login;

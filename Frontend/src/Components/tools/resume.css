@@ -1,0 +1,96 @@
+.resume-tool {
+  background: #fff;
+  color: #000;
+  padding: 20px;
+  max-width: 800px;
+  margin: auto;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+
+.back-btn {
+  margin-top: 2rem;
+  padding: 0.6rem 1.2rem;
+  background: #222;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.muted {
+  color: #555;
+}
+
+.drop-area {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.drop-area input {
+  margin-bottom: 10px;
+}
+
+.uploaded {
+  color: #007bff;
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.button-group {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.primary-btn {
+ padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #6366f1;
+   color: white;
+  cursor: pointer;
+}
+
+.secondary-btn {
+  background: #28a745;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.score-section {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 10px;
+  background: #ddd;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+}
+
+.ai-section {
+  background: #f8f9fa;
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+
+

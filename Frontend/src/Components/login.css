@@ -1,0 +1,113 @@
+.auth-container {
+  height: 100vh;
+  width: 100%;
+  background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  width: 380px;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+.auth-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #5ce1e6;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  font-size: 0.9rem;
+  color: #ddd;
+  margin-bottom: 1.5rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.8rem 0.5rem;
+  font-size: 1rem;
+  border: none;
+  border-bottom: 2px solid #5ce1e6;
+  background: transparent;
+  color: #fff;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group label {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.8rem;
+  color: #bbb;
+  font-size: 0.95rem;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+  top: -0.6rem;
+  font-size: 0.8rem;
+  color: #5ce1e6;
+}
+
+.auth-btn {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.auth-btn:hover {
+  background: linear-gradient(90deg, #0072ff, #00c6ff);
+}
+
+.switch-text {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.switch-text span {
+  color: #5ce1e6;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.switch-text span:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 450px) {
+  .auth-card {
+    width: 90%;
+    padding: 1.5rem;
+    margin-right: 30px;
+  }
+}

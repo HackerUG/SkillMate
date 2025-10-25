@@ -1,0 +1,72 @@
+.interview-prep {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.prep-section {
+  margin-top: 2rem;
+  border-left: 4px solid #007bff;
+  padding-left: 1.2rem;
+}
+
+.internship-alerts {
+  background: #f0f8ff;
+  border-left-color: 4f46e5;
+  padding: 1.2rem;
+  border-radius: 6px;
+}
+
+.internship-alerts ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.internship-alerts li {
+  margin-bottom: 0.8rem;
+  padding: 0.5rem;
+  background: #fff;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.internship-alerts li:hover {
+  background: #ffefd5;
+}
+
+.interview-prep h1 {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.interview-prep h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.interview-prep ul {
+  list-style: disc inside;
+  margin: 0.5rem 0 0 0;
+}
+
+.interview-prep a {
+  color: 4f46e5;
+  text-decoration: none;
+}
+
+.interview-prep a:hover {
+  text-decoration: underline;
+}
+
+.prep-section  button {
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+} 

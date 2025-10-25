@@ -1,0 +1,46 @@
+
+  svg {
+  transition: background 0.5s;
+}
+
+
+.link {
+  transition: stroke 0.5s, stroke-width 0.3s;
+}
+
+.link.path {
+  stroke: gold !important;
+  stroke-width: 4;
+  stroke-dasharray: 8;
+  animation: dash 1s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+.node circle {
+  transition: fill 0.4s, r 0.3s;
+}
+
+.graph-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .graph-container {
+    max-width: 100%;
+    padding: 0 0.5rem;
+  }
+}
+
+
+
