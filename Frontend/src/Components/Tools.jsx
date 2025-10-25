@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import "./tools.css";
+import "./Tools.css";
 
 const tools = [
   { name: "GPA Calculator", path: "/tools/gpa", icon: "🎓" },
