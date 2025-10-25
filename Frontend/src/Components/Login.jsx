@@ -31,7 +31,7 @@ const Login = () => {
     }
 
     try {
-      const url = `http://localhost:5000/api/auth/${isSignup ? "register" : "login"}`;
+      const url = `${import.meta.env.VITE_BACKEND_URL}/api/auth/${isSignup ? "register" : "login"}`;
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
