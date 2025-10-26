@@ -30,7 +30,7 @@ const Login = () => {
   }
 
   try {
-    const url = `${import.meta.env.VITE_BACKEND_URL}/api/auth/${isSignup ? "register" : "login"}`;
+    const url = `${import.meta.env.VITE_BACKEND_URL}/api/auth/${isSignup ? "signup" : "login"}`;
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
