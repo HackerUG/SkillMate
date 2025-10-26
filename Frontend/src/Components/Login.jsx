@@ -37,10 +37,18 @@ const Login = () => {
       body: JSON.stringify(formData),
     });
 
-    const data = await res.json();
+  
+    let data;
+    const contentType = res.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      data = await res.json();
+    } else {
+      data = { message: await res.text() }; 
+    }
 
     if (!res.ok) {
-      let message = data.message || "Something went wrong";
+      const message = data.message || "Something went wrong";
+
       switch (res.status) {
         case 400:
           toast.warn(message); 
@@ -57,18 +65,20 @@ const Login = () => {
         default:
           toast.error(message);
       }
-      return; 
+      return;
     }
 
-    // Success
+    // success
     login(data.token);
     toast.success(isSignup ? "Account created successfully!" : "Login successful!");
     setTimeout(() => navigate("/profile"), 1500);
 
   } catch (err) {
-    toast.error(err.message); 
+    console.error(err); 
+    toast.error(err.message || "Something went wrong!");
   }
 };
+
 
 
   return (
