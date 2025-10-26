@@ -22,32 +22,54 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    // simple validation
-    if (isSignup && formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match!");
-      return;
+  if (isSignup && formData.password !== formData.confirmPassword) {
+    toast.error("Passwords do not match!");
+    return;
+  }
+
+  try {
+    const url = `${import.meta.env.VITE_BACKEND_URL}/api/auth/${isSignup ? "register" : "login"}`;
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      let message = data.message || "Something went wrong";
+      switch (res.status) {
+        case 400:
+          toast.warn(message); 
+          break;
+        case 401:
+          toast.error(message); 
+          break;
+        case 409:
+          toast.info(message); 
+          break;
+        case 500:
+          toast.error("Server error, please try again later"); 
+          break;
+        default:
+          toast.error(message);
+      }
+      return; 
     }
 
-    try {
-      const url = `${import.meta.env.VITE_BACKEND_URL}/api/auth/${isSignup ? "register" : "login"}`;
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+    // Success
+    login(data.token);
+    toast.success(isSignup ? "Account created successfully!" : "Login successful!");
+    setTimeout(() => navigate("/profile"), 1500);
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Something went wrong");
+  } catch (err) {
+    toast.error(err.message); 
+  }
+};
 
-      login(data.token);
-      toast.success(isSignup ? "Account created successfully!" : "Login successful!");
-      setTimeout(() => navigate("/profile"), 1500);
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
 
   return (
     <motion.div
@@ -56,7 +78,17 @@ const Login = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      <ToastContainer position="top-right" autoClose={2000} />
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       
       <motion.div
         className="auth-card"

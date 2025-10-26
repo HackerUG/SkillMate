@@ -63,6 +63,7 @@
 .logout-btn {
   padding: 0.8rem 1rem; 
   font-size: 1rem;
+  text-align: center;
   width: 100%;           
   max-width: 300px;      
   margin: 0 auto;       
@@ -102,5 +103,6 @@
   .profile-btn,
   .logout-btn {
     font-size: 1.1rem; 
+    text-align: center;
   }
 }
