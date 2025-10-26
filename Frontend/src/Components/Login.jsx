@@ -158,7 +158,6 @@ const Login = () => {
             )}
           </AnimatePresence>
 
-          <AnimatePresence>
           <div className="input-group">
             <input
               type="email"
@@ -169,8 +168,7 @@ const Login = () => {
             />
             <label className={formData.email ? "filled" : ""}>Email</label>
           </div>
-          </AnimatePresence>
-          <AnimatePresence>
+
           <div className="input-group">
             <input
               type="password"
@@ -181,7 +179,6 @@ const Login = () => {
             />
             <label>Password</label>
           </div>
-          </AnimatePresence>
 
           <AnimatePresence>
             {isSignup && (
@@ -197,7 +194,6 @@ const Login = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
-                  placeholder="Confirm password"
                 />
                 <label>Confirm Password</label>
               </motion.div>
