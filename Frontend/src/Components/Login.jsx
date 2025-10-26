@@ -167,7 +167,7 @@ const Login = () => {
               onChange={handleChange}
               required
             />
-            <label>Email</label>
+            <label className={formData.email ? "filled" : ""}>Email</label>
           </div>
           </AnimatePresence>
           <AnimatePresence>
