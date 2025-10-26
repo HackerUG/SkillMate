@@ -36,37 +36,37 @@ const Login = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
     });
-
-  
+    
     let data;
-    const contentType = res.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
-      data = await res.json();
-    } else {
-      data = { message: await res.text() }; 
+    try {
+      const contentType = res.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await res.json();
+      } else {
+        data = { message: await res.text() };
+      }
+    } catch (err) {
+      data = { message: "Something went wrong" };
     }
+
 
     if (!res.ok) {
-      const message = data.message || "Something went wrong";
-
-      switch (res.status) {
-        case 400:
-          toast.warn(message); 
-          break;
-        case 401:
-          toast.error(message); 
-          break;
-        case 409:
-          toast.info(message); 
-          break;
-        case 500:
-          toast.error("Server error, please try again later"); 
-          break;
-        default:
-          toast.error(message);
-      }
-      return;
+    const message = data.message || "Something went wrong";
+    if (res.status === 401) {
+      toast.error(message || "Incorrect password");
+    } else if (res.status === 404) {
+      toast.warn(message || "User not found");
+    } else if (res.status === 409) {
+      toast.info(message || "Already logged in on another device");
+    } else if (res.status === 400) {
+      toast.warn(message);
+    } else {
+      toast.error(message);
     }
+
+    return;
+  }
+
 
     // success
     login(data.token);
