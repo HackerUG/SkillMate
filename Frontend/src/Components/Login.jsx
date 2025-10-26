@@ -24,6 +24,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
+  // local password check before sending to server
   if (isSignup && formData.password !== formData.confirmPassword) {
     toast.error("Passwords do not match!");
     return;
@@ -31,12 +32,17 @@ const Login = () => {
 
   try {
     const url = `${import.meta.env.VITE_BACKEND_URL}/api/auth/${isSignup ? "signup" : "login"}`;
+
+    const payload = isSignup
+      ? { username: formData.username, email: formData.email, password: formData.password }
+      : { email: formData.email, password: formData.password };
+
     const res = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(payload),
     });
-    
+
     let data;
     try {
       const contentType = res.headers.get("content-type");
@@ -45,39 +51,46 @@ const Login = () => {
       } else {
         data = { message: await res.text() };
       }
-    } catch (err) {
-      data = { message: "Something went wrong" };
+    } catch {
+      data = { message: "Invalid server response." };
     }
 
+    // unified message extraction
+    const serverMsg = data.msg || data.message || data.error || "Something went wrong";
 
+    // ---- handle errors ----
     if (!res.ok) {
-    const message = data.message || "Something went wrong";
-    if (res.status === 401) {
-      toast.error(message || "Incorrect password");
-    } else if (res.status === 404) {
-      toast.warn(message || "User not found");
-    } else if (res.status === 409) {
-      toast.info(message || "Already logged in on another device");
-    } else if (res.status === 400) {
-      toast.warn(message);
-    } else {
-      toast.error(message);
+      // Normalize messages for clarity
+      if (serverMsg.toLowerCase().includes("user not found")) {
+        toast.error("User not found. Please sign up first.");
+      } else if (serverMsg.toLowerCase().includes("invalid") && serverMsg.toLowerCase().includes("password")) {
+        toast.error("Incorrect password. Please try again.");
+      } else if (serverMsg.toLowerCase().includes("passwords do not match")) {
+        toast.error("Passwords do not match!");
+      } else if (serverMsg.toLowerCase().includes("already exists")) {
+        toast.info("User already exists. Please log in instead.");
+      } else if (serverMsg.toLowerCase().includes("invalid email")) {
+        toast.warn("Please enter a valid email address.");
+      } else if (serverMsg.toLowerCase().includes("weak")) {
+        toast.warn("Password must be stronger.");
+      } else {
+        // fallback for anything else
+        toast.error(serverMsg);
+      }
+
+      return;
     }
 
-    return;
-  }
-
-
-    // success
+    // ---- success ----
     login(data.token);
     toast.success(isSignup ? "Account created successfully!" : "Login successful!");
-    setTimeout(() => navigate("/profile"), 1500);
-
+    setTimeout(() => navigate("/profile"), 1200);
   } catch (err) {
-    console.error(err); 
+    console.error("Auth error:", err);
     toast.error(err.message || "Something went wrong!");
   }
 };
+
 
 
 
@@ -139,6 +152,7 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
+              placeholder="admin@gmail.com"
             />
             <label>Email</label>
           </div>
@@ -150,6 +164,7 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
+              placeholder="Enter password"
             />
             <label>Password</label>
           </div>
@@ -168,6 +183,7 @@ const Login = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   required
+                  placeholder="Confirm password"
                 />
                 <label>Confirm Password</label>
               </motion.div>
