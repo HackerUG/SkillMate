@@ -24,7 +24,20 @@ const Login = () => {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // local password check before sending to server
+  // Check required fields
+  if (isSignup) {
+    if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
+      toast.warn("All fields are required!");
+      return;
+    }
+  } else {
+    if (!formData.email || !formData.password) {
+      toast.warn("All fields are required!");
+      return;
+    }
+  }
+
+  // Check password match for signup
   if (isSignup && formData.password !== formData.confirmPassword) {
     toast.error("Passwords do not match!");
     return;
@@ -43,6 +56,7 @@ const Login = () => {
       body: JSON.stringify(payload),
     });
 
+    // parse JSON safely
     let data;
     try {
       const contentType = res.headers.get("content-type");
@@ -51,42 +65,41 @@ const Login = () => {
       } else {
         data = { message: await res.text() };
       }
-    } catch {
-      data = { message: "Invalid server response." };
+    } catch (err) {
+      data = { message: "Something went wrong while reading server response." };
     }
 
-    // unified message extraction
-    const serverMsg = data.msg || data.message || data.error || "Something went wrong";
-
-    // ---- handle errors ----
+    //Handle different error messages
     if (!res.ok) {
-      // Normalize messages for clarity
-      if (serverMsg.toLowerCase().includes("user not found")) {
-        toast.error("User not found. Please sign up first.");
-      } else if (serverMsg.toLowerCase().includes("invalid") && serverMsg.toLowerCase().includes("password")) {
-        toast.error("Incorrect password. Please try again.");
-      } else if (serverMsg.toLowerCase().includes("passwords do not match")) {
-        toast.error("Passwords do not match!");
-      } else if (serverMsg.toLowerCase().includes("already exists")) {
-        toast.info("User already exists. Please log in instead.");
-      } else if (serverMsg.toLowerCase().includes("invalid email")) {
-        toast.warn("Please enter a valid email address.");
-      } else if (serverMsg.toLowerCase().includes("weak")) {
-        toast.warn("Password must be stronger.");
-      } else {
-        // fallback for anything else
-        toast.error(serverMsg);
-      }
+      const serverMsg =
+        data.msg ||
+        data.message ||
+        data.error ||
+        "Something went wrong, please try again.";
+
+      // Map backend messages to user-friendly toasts
+      if (serverMsg.toLowerCase().includes("not found"))
+        toast.error("User not found!");
+      else if (serverMsg.toLowerCase().includes("incorrect"))
+        toast.error("Incorrect password!");
+      else if (serverMsg.toLowerCase().includes("exists"))
+        toast.info("User already exists!");
+      else if (serverMsg.toLowerCase().includes("password"))
+        toast.error("Password does not match!");
+      else if (res.status === 400)
+        toast.warn("Invalid request. Please check your input!");
+      else toast.error(serverMsg);
 
       return;
     }
 
-    // ---- success ----
+    // Success 
     login(data.token);
     toast.success(isSignup ? "Account created successfully!" : "Login successful!");
     setTimeout(() => navigate("/profile"), 1200);
+
   } catch (err) {
-    console.error("Auth error:", err);
+    console.error(err);
     toast.error(err.message || "Something went wrong!");
   }
 };
@@ -145,6 +158,7 @@ const Login = () => {
             )}
           </AnimatePresence>
 
+          <AnimatePresence>
           <div className="input-group">
             <input
               type="email"
@@ -152,11 +166,11 @@ const Login = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              placeholder="admin@gmail.com"
             />
             <label>Email</label>
           </div>
-
+          </AnimatePresence>
+          <AnimatePresence>
           <div className="input-group">
             <input
               type="password"
@@ -164,10 +178,10 @@ const Login = () => {
               value={formData.password}
               onChange={handleChange}
               required
-              placeholder="Enter password"
             />
             <label>Password</label>
           </div>
+          </AnimatePresence>
 
           <AnimatePresence>
             {isSignup && (
