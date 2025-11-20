@@ -66,6 +66,21 @@ router.post("/signup", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    // Handle MongoDB Duplicate Key Error (E11000)
+  if (err.code === 11000) {
+    return res.status(409).json({ 
+      msg: "A user with this email already exists (Duplicate Key Error).",
+      error_code: 11000
+    });
+  }
+  
+  // Handle Mongoose Validation Error (e.g., a 'required' field failed)
+  if (err.name === 'ValidationError') {
+    return res.status(400).json({ 
+      msg: "Validation Failed: Check model constraints.", 
+      details: err.message 
+    });
+  }
     res.status(500).json({ error: "Server error. Please try again later." });
   }
 });
@@ -100,6 +115,7 @@ router.post("/login", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    
     res.status(500).json({ error: "Server error. Please try again later." });
   }
 });
