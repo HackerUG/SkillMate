@@ -47,7 +47,7 @@ const Login = () => {
     const url = `${import.meta.env.VITE_BACKEND_URL}/api/auth/${isSignup ? "signup" : "login"}`;
 
     const payload = isSignup
-      ? { username: formData.username, email: formData.email, password: formData.password }
+      ? { username: formData.username, email: formData.email, password: formData.password, confirmPassword: formData.confirmPassword }
       : { email: formData.email, password: formData.password };
 
     const res = await fetch(url, {
